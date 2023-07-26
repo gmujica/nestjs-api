@@ -20,8 +20,6 @@ import { Event } from './event/infrastructure/entity/event.entity';
       username: process.env.PG_USER,
       password: process.env.PG_PASSWORD,
       database: process.env.PG_DB,
-      //entities: [__dirname + '/**/*.entity{.ts,.js}'],
-     // entities: [__dirname + '/../**/*.entity.{js,ts}'],
       entities: [User, Event],
       synchronize: true,
       //autoLoadEntities: true
