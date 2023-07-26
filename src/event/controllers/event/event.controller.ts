@@ -12,7 +12,7 @@ export class EventController {
     }
      //get one event
      @Get(':id')
-     async findOne(@Param('event_id') event_id: number): Promise<Event> {
+     async findOne(@Param('event_id') event_id: string): Promise<Event> {
          const event = await this.eventService.findOne(event_id);
          if(!event) {
              throw new Error('Event not found');

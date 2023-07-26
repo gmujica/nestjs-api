@@ -4,7 +4,7 @@ import { Entity, Column, PrimaryGeneratedColumn, Generated } from "typeorm";
 export class Event {
     @PrimaryGeneratedColumn('uuid')
     @Generated('uuid')
-    event_id: number;
+    event_id: string;
 
     @Column()
     title: string;

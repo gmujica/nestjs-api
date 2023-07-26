@@ -7,14 +7,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 export class EventService {
     constructor(
         @InjectRepository(Event)
-        private eventRepository: Repository<Event>
+        private eventRepository: Repository<Event>,
     ) {}
     //get all events
     async findAll(): Promise<Event[]> {
         return await this.eventRepository.find();
     }
     //get one event
-    async findOne(event_id: number): Promise<Event> {
+    async findOne(event_id: string): Promise<Event> {
         return await this.eventRepository.findOne({ where : { event_id }});
    }
    //create event

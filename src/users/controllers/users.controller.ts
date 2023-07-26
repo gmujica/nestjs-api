@@ -13,7 +13,7 @@ export class UsersController {
     }
     //get one user
     @Get(':id')
-    async findOne(@Param('id') id: number): Promise<User> {
+    async findOne(@Param('id') id: string): Promise<User> {
         const user = await this.userService.findOne(id);
         if(!user) {
             throw new Error('User not found');
@@ -28,12 +28,12 @@ export class UsersController {
     }
     //update user
     @Put(':id')
-    async update(@Param('id') id: number, @Body() user: User): Promise<User> {
+    async update(@Param('id') id: string, @Body() user: User): Promise<User> {
         return this.userService.update(id, user);
     }
     //delete user
     @Delete(':id')
-    async delete(@Param('id') id: number): Promise<void> {
+    async delete(@Param('id') id: string): Promise<void> {
         //handle the error if user not found
         const user = await this.userService.findOne(id);
         if(!user) {
