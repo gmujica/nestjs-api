@@ -10,8 +10,14 @@ export class EventService {
         private eventRepository: Repository<Event>,
     ) {}
     //get all events
-    async findAll(): Promise<Event[]> {
+    async findAll(/*event_id: string*/): Promise<Event[]> {
         return await this.eventRepository.find();
+
+        /*const events = await this.eventRepository.find({
+            relations: [''], loadRelationIds: false,
+            where: {event_id: event_id}
+        })
+        return events;*/
     }
     //get one event
     async findOne(event_id: string): Promise<Event> {
