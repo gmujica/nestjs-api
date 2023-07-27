@@ -1,4 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, Generated, CreateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Generated, CreateDateColumn, OneToMany } from "typeorm";
+import { Event } from '../../../event/infrastructure/entity/event.entity'
 
 @Entity()
 export class User {
@@ -17,5 +18,8 @@ export class User {
 
     @CreateDateColumn()
     updated_at: Date;
+    
+    @OneToMany(() => Event, event => event.user)
+    events: Event[];
     
 }

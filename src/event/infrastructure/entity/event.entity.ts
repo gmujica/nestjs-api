@@ -14,9 +14,12 @@ export class Event {
     @Column()
     descrption: string;
 
-    @ManyToOne(() => User, (user) => user.id)
+    /*@ManyToOne(() => User, (user) => user.id)
     @JoinColumn({ name: 'id ' })
-    id : string;
+    id : string;*/
+    @ManyToOne(() => User, (user) => user.events)
+    @JoinColumn({ name: 'id ' })
+    user: User;
 
     @CreateDateColumn()
     created_at: Date;
