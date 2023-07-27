@@ -15,7 +15,10 @@ export class EventService {
     }
     //get one event
     async findOne(event_id: string): Promise<Event> {
-        return await this.eventRepository.findOne({ where : { event_id }});
+        return await this.eventRepository.findOne({ 
+            where : { event_id },
+            relations: ['user'], // Include the 'user' relationship
+        });
    }
    //create event
    async create(event: Event): Promise<Event> {

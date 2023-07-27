@@ -22,7 +22,8 @@ import { Event } from './event/infrastructure/entity/event.entity';
       database: process.env.PG_DB,
       entities: [User, Event],
       synchronize: true,
-      //autoLoadEntities: true
+      logging: true,
+      autoLoadEntities: true,
     }),
   ],
   controllers: [AppController],
