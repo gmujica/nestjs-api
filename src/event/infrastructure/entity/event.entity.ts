@@ -13,10 +13,7 @@ export class Event {
 
     @Column()
     descrption: string;
-
-    /*@ManyToOne(() => User, (user) => user.id)
-    @JoinColumn({ name: 'id ' })
-    id : string;*/
+    
     @ManyToOne(() => User, (user) => user.events)
     @JoinColumn({ name: 'id ' })
     user: User;

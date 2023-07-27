@@ -30,8 +30,24 @@ describe('EventService', () => {
   describe('findAll', () => {
     it('should return an array of events', async () => {
       const events: Event[] = [
-        { event_id: '1', title: 'Event 1', descrption: 'Description 1', id: '1', created_at: new Date(), updated_at: new Date() },
-        { event_id: '2', title: 'Event 2', descrption: 'Description 2', id: '2', created_at: new Date(), updated_at: new Date() },
+        {
+          event_id: '1',
+          title: 'Event 1',
+          descrption: 'Description 1',
+          //id: '1',
+          created_at: new Date(),
+          updated_at: new Date(),
+          user: { id: '1', name: 'John Doe', email: 'john@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
+        },
+        {
+          event_id: '2',
+          title: 'Event 2',
+          descrption: 'Description 2',
+          //id: '2',
+          created_at: new Date(),
+          updated_at: new Date(),
+          user: { id: '2', name: 'Jane Doe', email: 'jane@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
+        },
       ];
       jest.spyOn(eventRepository, 'find').mockResolvedValue(events);
 
@@ -43,7 +59,16 @@ describe('EventService', () => {
   describe('findOne', () => {
     it('should return a single event when a valid event_id is provided', async () => {
       const eventId = '1';
-      const event: Event = { event_id: eventId, title: 'Event 1', descrption: 'Description 1', id: '1', created_at: new Date(), updated_at: new Date() };
+      const user = { id: '1', name: 'John Doe', email: 'john@example.com', created_at: new Date(), updated_at: new Date(), events: [] };
+      const event: Event = {
+        event_id: eventId,
+        title: 'Event 1',
+        descrption: 'Description 1',
+        //id: '1',
+        created_at: new Date(),
+        updated_at: new Date(),
+        user,
+      };
       jest.spyOn(eventRepository, 'findOne').mockResolvedValue(event);
 
       const result = await service.findOne(eventId);
@@ -61,8 +86,24 @@ describe('EventService', () => {
 
   describe('create', () => {
     it('should create a new event and return it', async () => {
-      const newEvent: Event = { event_id: '1', title: 'New Event', descrption: 'New Description', id: '3', created_at: new Date(), updated_at: new Date() };
-      const createdEvent: Event = { event_id: '3', title: 'New Event', descrption: 'New Description', id: '3', created_at: new Date(), updated_at: new Date() };
+      const newEvent: Event = {
+        event_id: '1',
+        title: 'New Event',
+        descrption: 'New Description',
+        //id: '3',
+        created_at: new Date(),
+        updated_at: new Date(),
+        user: { id: '3', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
+      };
+      const createdEvent: Event = {
+        event_id: '3',
+        title: 'New Event',
+        descrption: 'New Description',
+        //id: '3',
+        created_at: new Date(),
+        updated_at: new Date(),
+        user: { id: '3', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
+      };
 
       jest.spyOn(eventRepository, 'create').mockReturnValue(newEvent);
       jest.spyOn(eventRepository, 'save').mockResolvedValue(createdEvent);
@@ -72,4 +113,3 @@ describe('EventService', () => {
     });
   });
 });
-

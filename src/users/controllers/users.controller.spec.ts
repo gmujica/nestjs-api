@@ -32,8 +32,8 @@ describe('UsersController', () => {
   describe('findAll', () => {
     it('should return an array of users', async () => {
       const users: User[] = [
-        { id: '1', name: 'User 1', email: 'user1@example.com', created_at: new Date(), updated_at: new Date() },
-        { id: '2', name: 'User 2', email: 'user2@example.com', created_at: new Date(), updated_at: new Date() },
+        { id: '1', name: 'User 1', email: 'user1@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
+        { id: '2', name: 'User 2', email: 'user2@example.com', created_at: new Date(), updated_at: new Date(), events: [] },
       ];
       jest.spyOn(userService, 'findall').mockResolvedValue(users);
 
@@ -45,7 +45,10 @@ describe('UsersController', () => {
   describe('findOne', () => {
     it('should return a single user when a valid user ID is provided', async () => {
       const userId = '1';
-      const user: User = { id: userId, name: 'User 1', email: 'user1@example.com', created_at: new Date(), updated_at: new Date() };
+      const user: User = {
+        id: userId, name: 'User 1', email: 'user1@example.com', created_at: new Date(), updated_at: new Date(),
+        events: []
+      };
       jest.spyOn(userService, 'findOne').mockResolvedValue(user);
 
       const result = await controller.findOne(userId);
@@ -62,8 +65,14 @@ describe('UsersController', () => {
 
   describe('create', () => {
     it('should create a new user and return it', async () => {
-      const newUser: User = { id: '1', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date() };
-      const createdUser: User = { id: '3', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date() };
+      const newUser: User = {
+        id: '1', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date(),
+        events: []
+      };
+      const createdUser: User = {
+        id: '3', name: 'New User', email: 'newuser@example.com', created_at: new Date(), updated_at: new Date(),
+        events: []
+      };
 
       jest.spyOn(userService, 'create').mockResolvedValue(createdUser);
 
@@ -75,7 +84,10 @@ describe('UsersController', () => {
   describe('update', () => {
     it('should update an existing user and return it', async () => {
       const userId = '1';
-      const updatedUser: User = { id: userId, name: 'Updated User', email: 'updateduser@example.com', created_at: new Date(), updated_at: new Date() };
+      const updatedUser: User = {
+        id: userId, name: 'Updated User', email: 'updateduser@example.com', created_at: new Date(), updated_at: new Date(),
+        events: []
+      };
 
       jest.spyOn(userService, 'update').mockResolvedValue(updatedUser);
 
@@ -88,7 +100,7 @@ describe('UsersController', () => {
     it('should delete the user with the provided ID', async () => {
       const userId = '1';
 
-      jest.spyOn(userService, 'findOne').mockResolvedValue({ id: userId, name: 'User', email: 'user@example.com', created_at: new Date(), updated_at: new Date() });
+      jest.spyOn(userService, 'findOne').mockResolvedValue({ id: userId, name: 'User', email: 'user@example.com', created_at: new Date(), updated_at: new Date(), events: [] });
       jest.spyOn(userService, 'delete').mockResolvedValue(undefined);
 
       await expect(controller.delete(userId)).resolves.toBeUndefined();

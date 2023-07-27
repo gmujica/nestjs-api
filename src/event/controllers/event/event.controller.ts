@@ -2,7 +2,6 @@ import { Controller, Get, Post, Param, Body } from '@nestjs/common';
 import { EventService } from '../../application/event/event.service';
 import { Event } from '../../infrastructure/entity/event.entity';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
-//import { User } from 'src/users/infrastructure/entity/user.entity';
 
 @Controller('event')
 export class EventController {
@@ -18,13 +17,9 @@ export class EventController {
   //get one event
   @Get(':id')
   @ApiTags('Event')
-  async findOne(@Param('id') event_id: string): Promise<Event> {
+  async findOne(@Param('id') event_id: string): Promise<Event | null> {
     const event = await this.eventService.findOne(event_id);
-    if (!event) {
-      throw new Error('Event not found');
-    } else {
-      return event;
-    }
+    return event ? event : null;
   }
 
   //create event
