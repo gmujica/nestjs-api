@@ -1,5 +1,6 @@
 import { Controller, Get, Post, Param,Delete, Put, Body } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import * as bcrypt from 'bcrypt';
 import { any } from 'joi';
 import { User } from '../infrastructure/entity/user.entity';
 import { UsersService } from '../application/users.service';
@@ -24,25 +25,30 @@ export class UsersController {
             return user;
         }
     }
-    //create user
+    // create user
     @Post()
     @ApiTags('users')
     @ApiBody({
         type: any,
         description: 'Create user',
         examples: {
-        user: {
-            summary: 'Create user',
-            description: 'Create user',
-            value: {
-                "name": "ada",
-                "email": "ada@mail.com"
+            user: {
+                summary: 'Create user',
+                description: 'Create user',
+                value: {
+                    "name": "ada",
+                    "email": "ada@mail.com",
+                    "password": "password123" // Replace "password123" with the actual password value
+                },
             },
-        },
         },
     })
 
     async create(@Body() user: User): Promise<User> {
+        // Hash the password before storing it in the database
+        const hashedPassword = await bcrypt.hash(user.password, 10); // 10 is the salt rounds (you can adjust it as per your preference)
+        user.password = hashedPassword;
+        
         return await this.userService.create(user);
     }
     //update user

@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Event } from '../../infrastructure/entity/event.entity'
 import { InjectRepository } from '@nestjs/typeorm';
 
+
 @Injectable()
 export class EventService {
     constructor(

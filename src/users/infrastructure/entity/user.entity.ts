@@ -1,6 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, Generated, CreateDateColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, Generated, CreateDateColumn, OneToMany, BeforeInsert } from "typeorm";
 import { Event } from '../../../event/infrastructure/entity/event.entity'
-
+import * as bcrypt from 'bcrypt';
 @Entity()
 export class User {
     @PrimaryGeneratedColumn('uuid')
@@ -13,6 +13,9 @@ export class User {
     @Column()
     email: string;
 
+    @Column({ default: '' })
+    password: string;
+
     @CreateDateColumn()
     created_at: Date;
 
@@ -21,5 +24,11 @@ export class User {
     
     @OneToMany(() => Event, event => event.user)
     events: Event[];
+
+    // Hash the password before inserting it into the database
+    @BeforeInsert()
+    async hashPassword() {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
     
 }
