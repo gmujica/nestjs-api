@@ -61,6 +61,5 @@ export class UsersController {
             throw new Error('user not found');
         }
         return this.userService.delete(id);
-    }
-    
+    } 
 }

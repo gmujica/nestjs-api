@@ -1,29 +1,24 @@
-
 import { User } from "../../../users/infrastructure/entity/user.entity";
-import { Entity, Column, PrimaryGeneratedColumn, Generated, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, CreateDateColumn } from "typeorm";
 
 @Entity()
 export class Event {
-    @PrimaryGeneratedColumn('uuid')
-    @Generated('uuid')
-    event_id: string;
+  @PrimaryGeneratedColumn("uuid")
+  event_id: string;
 
-    @Column()
-    title: string;
+  @Column()
+  title: string;
 
-    @Column()
-    descrption: string;
-    
-    @ManyToOne(() => User, (user) => user.events)
-    @JoinColumn({ name: 'id ' })
-    user: User;
+  @Column()
+  description: string;
 
-    @CreateDateColumn()
-    created_at: Date;
+  @ManyToOne(() => User, (user) => user.events)
+  @JoinColumn({ name: "id" }) // Assuming the foreign key column in the User entity is named "id"
+  user: User;
 
-    @CreateDateColumn()
-    updated_at: Date;
-    
+  @CreateDateColumn()
+  created_at: Date;
+
+  @CreateDateColumn()
+  updated_at: Date;
 }
-
-

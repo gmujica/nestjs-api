@@ -23,7 +23,7 @@ export class EventService {
    //create event
    async create(event: Event): Promise<Event> {
         const newEvent = this.eventRepository.create(event);
-
-        return await this.eventRepository.save(newEvent);
+        const savedEvent = await this.eventRepository.save(newEvent);
+        return await this.eventRepository.save(savedEvent);
     }
 }

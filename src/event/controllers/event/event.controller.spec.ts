@@ -35,7 +35,7 @@ describe('EventController', () => {
         {
           event_id: '1',
           title: 'Event 1',
-          descrption: 'Description 1',
+          description: 'Description 1',
           //id: '1',
           created_at: new Date(),
           updated_at: new Date(),
@@ -44,7 +44,7 @@ describe('EventController', () => {
         {
           event_id: '2',
           title: 'Event 2',
-          descrption: 'Description 2',
+          description: 'Description 2',
           //id: '2',
           created_at: new Date(),
           updated_at: new Date(),
@@ -65,7 +65,7 @@ describe('EventController', () => {
       const event: Event = {
         event_id: eventId,
         title: 'Event 1',
-        descrption: 'Description 1',
+        description: 'Description 1',
         //id: '1',
         created_at: new Date(),
         updated_at: new Date(),
@@ -91,7 +91,7 @@ describe('EventController', () => {
       const newEvent: Event = {
         event_id: '1',
         title: 'New Event',
-        descrption: 'New Description',
+        description: 'New Description',
         //id: '3',
         created_at: new Date(),
         updated_at: new Date(),
@@ -100,7 +100,7 @@ describe('EventController', () => {
       const createdEvent: Event = {
         event_id: '3',
         title: 'New Event',
-        descrption: 'New Description',
+        description: 'New Description',
         //id: '3',
         created_at: new Date(),
         updated_at: new Date(),
