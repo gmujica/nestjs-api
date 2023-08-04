@@ -13,8 +13,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // You can implement your own logic to validate the user
-    // For example, fetching the user by ID from the database
     const user = await this.usersService.findOne(payload.sub);
     return user;
   }

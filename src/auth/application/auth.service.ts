@@ -10,8 +10,6 @@ interface UserWithoutPassword {
     email: string;
     created_at: Date;
     updated_at: Date;
-    // Add any other properties you want to include in the UserWithoutPassword interface
-    // For example, 'events' is not included in this interface
   }
 @Injectable()
 export class AuthService {
