@@ -7,11 +7,13 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { EventModule } from './event/event.module';
 import { User } from './users/infrastructure/entity/user.entity';
 import { Event } from './event/infrastructure/entity/event.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     UsersModule,
     EventModule,
+    //AuthModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,

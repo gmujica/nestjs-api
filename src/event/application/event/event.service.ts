@@ -3,6 +3,7 @@ import { Repository } from 'typeorm';
 import { Event } from '../../infrastructure/entity/event.entity'
 import { InjectRepository } from '@nestjs/typeorm';
 
+
 @Injectable()
 export class EventService {
     constructor(
@@ -17,13 +18,13 @@ export class EventService {
     async findOne(event_id: string): Promise<Event> {
         return await this.eventRepository.findOne({ 
             where : { event_id },
-            relations: ['user'], // Include the 'user' relationship
+            relations: ['user'],
         });
    }
    //create event
    async create(event: Event): Promise<Event> {
         const newEvent = this.eventRepository.create(event);
-
-        return await this.eventRepository.save(newEvent);
+        const savedEvent = await this.eventRepository.save(newEvent);
+        return await this.eventRepository.save(savedEvent);
     }
 }
