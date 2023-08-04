@@ -13,7 +13,7 @@ export class Event {
   description: string;
 
   @ManyToOne(() => User, (user) => user.events)
-  @JoinColumn({ name: "id" }) // Assuming the foreign key column in the User entity is named "id"
+  @JoinColumn({ name: "id" })
   user: User;
 
   @CreateDateColumn()
