@@ -19,22 +19,20 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<UserWithoutPassword | null> {
-    // Find the user by email (assuming the email is unique)
     const user = await this.usersService.findByEmail(email);
   
     if (user && (await bcrypt.compare(password, user.password))) {
-      // Password matches, return the user without the password
       const { password, ...result } = user;
       return result;
     }
-    // If the user or password is invalid, return null
     return null;
   }
-  async login(user: User): Promise<{ access_token: string }> {
+  async login(user: UserWithoutPassword): Promise<{ access_token: string }> {
     const payload = { sub: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
+  
   
 }
