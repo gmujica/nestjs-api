@@ -13,7 +13,7 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     UsersModule,
     EventModule,
-    //AuthModule,
+    AuthModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,

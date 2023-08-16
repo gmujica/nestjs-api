@@ -1,10 +1,15 @@
 import { Controller, Post, Body, HttpStatus, HttpException } from '@nestjs/common';
 import { AuthService } from '../application/auth.service';
-import { User } from 'src/users/infrastructure/entity/user.entity';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger'; 
 
+@ApiTags('Authentication')
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
+
+    @ApiOperation({ summary: 'User Login' }) // Operation summary
+    @ApiResponse({ status: HttpStatus.OK, description: 'Login successful' }) // Response metadata
+    @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Unable to generate access token' }) // Response metadata
 
     @Post('login')
   async login(@Body() user: UserWithoutPassword): Promise<{ access_token: string }> {
