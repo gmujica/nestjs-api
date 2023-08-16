@@ -9,6 +9,7 @@ async function bootstrap() {
   .setTitle('NestJS REST API')
   .setDescription('The nestjs API description')
   .setVersion('1.0')
+  .addBearerAuth()
   .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
@@ -16,4 +17,5 @@ async function bootstrap() {
   app.enableCors()
   await app.listen(3000);
 }
+console.log("JWT_SECRET",process.env.JWT_SECRET);
 bootstrap();

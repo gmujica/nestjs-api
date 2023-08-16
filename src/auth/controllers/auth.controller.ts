@@ -8,8 +8,8 @@ export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
     @ApiOperation({ summary: 'User Login' }) // Operation summary
-    @ApiResponse({ status: HttpStatus.OK, description: 'Login successful' }) // Response metadata
-    @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Unable to generate access token' }) // Response metadata
+    @ApiResponse({ status: HttpStatus.OK, description: 'Login successful' })
+    @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Unable to generate access token' })
 
     @Post('login')
   async login(@Body() user: UserWithoutPassword): Promise<{ access_token: string }> {
