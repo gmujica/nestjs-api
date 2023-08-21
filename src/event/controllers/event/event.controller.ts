@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Param, Body, Delete, NotFoundException, Put } from '@nestjs/common';
 import { EventService } from '../../application/event/event.service';
 import { Event } from '../../infrastructure/entity/event.entity';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
@@ -35,12 +35,43 @@ export class EventController {
         value: {
           title: 'event1',
           description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-          id: 'User ID',
+          "user": {
+            "id": "User ID"
+          }
         },
       },
     },
   })
+  
   async create(@Body() event: Event): Promise<Event> {
-    return await this.eventService.create(event);
+    const userId = event.user.id;
+    return await this.eventService.create(event, userId);
+  }
+  // update event by ID
+  @Put(':id')
+  @ApiTags('Event')
+  async update(@Param('id') event_id: string, @Body() updatedEvent: Event): Promise<Event | NotFoundException> {
+      try {
+          return await this.eventService.updateEvent(event_id, updatedEvent);
+      } catch (error) {
+          if (error instanceof NotFoundException) {
+              throw error;
+          }
+          throw new NotFoundException(`Event with ID ${event_id} not found.`);
+      }
+  }
+
+  // delete event by ID
+  @Delete(':id')
+  @ApiTags('Event')
+  async remove(@Param('id') event_id: string): Promise<void | NotFoundException> {
+      try {
+          await this.eventService.deleteEvent(event_id);
+      } catch (error) {
+          if (error instanceof NotFoundException) {
+              throw error;
+          }
+          throw new NotFoundException(`Event with ID ${event_id} not found.`);
+      }
   }
 }

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Param,Delete, Put, Body, ValidationPipe } from '@nestjs/common';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import * as bcrypt from 'bcrypt';
-import { any } from 'joi';
+import { any, boolean } from 'joi';
 import { User } from '../infrastructure/entity/user.entity';
 import { UsersService } from '../application/users.service';
 import { CreateUserDto } from '../infrastructure/dto/CreateUserDto';
@@ -39,19 +39,11 @@ export class UsersController {
                 value: {
                     "name": "ada",
                     "email": "ada@mail.com",
-                    "password": "password123" // Replace "password123" with the actual password value
+                    "password": "password123"
                 },
             },
         },
     })
-
-    /*async create(@Body() user: User): Promise<User> {
-        // Hash the password before storing it in the database
-        const hashedPassword = await bcrypt.hash(user.password, 10); // 10 is the salt rounds (you can adjust it as per your preference)
-        user.password = hashedPassword;
-        
-        return await this.userService.create(user);
-    }*/
    @Post()
   async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
@@ -63,7 +55,8 @@ export class UsersController {
       password: hashedPassword,
       created_at: new Date(),
       updated_at: new Date(),
-      events: [], 
+      events: [],
+      isLoggedIn: false
       //hashPassword: undefined,
     };
 
