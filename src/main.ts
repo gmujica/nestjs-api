@@ -17,5 +17,5 @@ async function bootstrap() {
   app.enableCors()
   await app.listen(3000);
 }
-console.log("JWT_SECRET",process.env.JWT_SECRET);
+
 bootstrap();

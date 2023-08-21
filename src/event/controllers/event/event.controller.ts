@@ -35,13 +35,17 @@ export class EventController {
         value: {
           title: 'event1',
           description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
-          id: 'User ID',
+          "user": {
+            "id": "User ID"
+          }
         },
       },
     },
   })
+  
   async create(@Body() event: Event): Promise<Event> {
-    return await this.eventService.create(event);
+    const userId = event.user.id;
+    return await this.eventService.create(event, userId);
   }
   // update event by ID
   @Put(':id')

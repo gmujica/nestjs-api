@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Event } from '../../infrastructure/entity/event.entity'
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/infrastructure/entity/user.entity';
 
 
 @Injectable()
@@ -22,7 +23,12 @@ export class EventService {
         });
    }
    //create event
-   async create(event: Event): Promise<Event> {
+   async create(event: Event, userId: string): Promise<Event> {
+        const newUser = new User();
+        newUser.id = userId;
+
+        event.user = newUser;
+
         const newEvent = this.eventRepository.create(event);
         const savedEvent = await this.eventRepository.save(newEvent);
         return await this.eventRepository.save(savedEvent);

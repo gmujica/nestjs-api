@@ -7,7 +7,7 @@ import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @ApiOperation({ summary: 'User Login' }) // Operation summary
+    @ApiOperation({ summary: 'User Login' })
     @ApiResponse({ status: HttpStatus.OK, description: 'Login successful' })
     @ApiResponse({ status: HttpStatus.INTERNAL_SERVER_ERROR, description: 'Unable to generate access token' })
 
