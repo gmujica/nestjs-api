@@ -33,6 +33,14 @@ export class EventService {
         const savedEvent = await this.eventRepository.save(newEvent);
         return await this.eventRepository.save(savedEvent);
     }
+    //find by userId
+    async findEventsByUserId(userId: string): Promise<Event[]> {
+        return await this.eventRepository.find({
+            where: {
+                user: { id: userId },
+            },
+        });
+    }
     //update event
     async updateEvent(event_id: string, updatedEvent: Event): Promise<Event> {
         const existingEvent = await this.findOne(event_id);

@@ -47,6 +47,12 @@ export class EventController {
     const userId = event.user.id;
     return await this.eventService.create(event, userId);
   }
+  //find by userId
+  @Get('user/:userId')
+    @ApiTags('Event')
+    async findByUserId(@Param('userId') userId: string): Promise<Event[]> {
+        return await this.eventService.findEventsByUserId(userId);
+    }
   // update event by ID
   @Put(':id')
   @ApiTags('Event')
